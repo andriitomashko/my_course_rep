@@ -1,0 +1,21 @@
+{
+  "name": "my_course_rep",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andriitomashko/my_course_rep.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/andriitomashko/my_course_rep/issues"
+  },
+  "homepage": "https://github.com/andriitomashko/my_course_rep#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0"
+  }
+}
