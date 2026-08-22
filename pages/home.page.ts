@@ -22,5 +22,9 @@ export class HomePage {
 
     checkbox(name: string): Locator {
         return this.page.getByRole('checkbox', { name })
-    }   
+    }
+    
+    async selectProduct(name: string) {
+        await this.productCards.getByText(name).click();
+    }
 }
