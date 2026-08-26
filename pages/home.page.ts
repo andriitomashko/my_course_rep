@@ -5,6 +5,8 @@ export class HomePage {
     page: Page;
     header: HeaderFragment;
     productCards: Locator;
+    productName: Locator;
+    productPrice: Locator;
     sort: Locator;
     slider: Locator;
     searchInput: Locator;
@@ -14,6 +16,8 @@ export class HomePage {
         this.page = page;
         this.header = new HeaderFragment(page);
         this.productCards = this.page.locator('.card');
+        this.productName = this.page.getByTestId('product-name');
+        this.productPrice = this.page.getByTestId('product-price');
         this.sort = this.page.getByTestId('sort');
         this.slider = this.page.getByLabel('ngx-slider');
         this.searchInput = this.page.getByTestId('search-query');

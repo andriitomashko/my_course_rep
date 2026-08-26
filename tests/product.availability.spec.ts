@@ -6,7 +6,7 @@ test('Verify user can view product details', async ({ page }) => {
     const homePage = new HomePage(page);
     const productPage = new ProductPage(page);
 
-    await page.goto('/')
+    await page.goto('/');
     await homePage.selectProduct('Combination Pliers');
 
     await expect(page).toHaveURL(/product/);
