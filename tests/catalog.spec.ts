@@ -1,30 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from 'pages/home.page';
-
-enum HandTools {
-    Hammer = 'Hammer',
-    HandSaw = 'Hand Saw',
-    Wrench = 'Wrench',
-    Screwdriver = 'Screwdriver',
-    Pliers = 'Pliers',
-    Chisels = 'Chisels',
-    Measures = 'Measures',
-}
-
-enum PowerTools {
-    Grinder = 'Grinder',
-    Sander = 'Sander',
-    Saw = 'Saw',
-    Drill = 'Drill',
-}
-
-enum Other {
-    ToolBelts = 'Tool Belts',
-    StorageSolutions = 'Storage Solutions',
-    Workbench = 'Workbench',
-    SafetyGear = 'Safety Gear',
-    Fasteners = 'Fasteners',
-}
+import { PowerTools } from 'test-data/categories.enum';
 
 const nameSortOptions = [
     { name: 'Name (A - Z)', sortOrder: 'asc' },
@@ -46,34 +22,34 @@ nameSortOptions.forEach(({ name, sortOrder }) => {
 
     await page.goto('/');
     await homePage.sort.selectOption({ label: name });
-    await page.waitForTimeout(1000);
 
-    const actualNames = await homePage.productName.allInnerTexts();    
-    const expectedNames = sortOrder === 'asc' 
-        ? [...actualNames].sort() 
-        : [...actualNames].sort().reverse();
+    await expect(async () => {
+        const actualNames = await homePage.getProductNames();
+        const expectedNames = sortOrder === 'asc' 
+            ? [...actualNames].sort() 
+            : [...actualNames].sort().reverse();
 
-    expect(actualNames).toEqual(expectedNames);
+        expect(actualNames).toEqual(expectedNames);
+    }).toPass();
     });
 })
 
-priceSortOptions.forEach(({ name, sortOrder, }) => {
+priceSortOptions.forEach(({ name, sortOrder }) => {
 
     test(`Verify user can perform sorting by ${name}`, async ({page}) => {
         const homePage = new HomePage(page);
 
         await page.goto('/');
         await homePage.sort.selectOption({ label: name });
-        await page.waitForTimeout(1000);
 
+        await expect(async () => {
+            const actualPrices = await homePage.getProductPrices();
+            const expectedPrices = sortOrder === 'asc'
+                ? [...actualPrices].sort((a, b) => a - b)
+                : [...actualPrices].sort((a, b) => b - a)
 
-        const rawPrices = await homePage.productPrice.allInnerTexts();
-        const actualPrices = rawPrices.map(price => parseFloat(price.replace('$', '')))
-        const expectedPrices = sortOrder === 'asc'
-            ? [...actualPrices].sort((a, b) => a - b)
-            : [...actualPrices].sort((a, b) => b - a)
-
-        expect(actualPrices).toEqual(expectedPrices);
+            expect(actualPrices).toEqual(expectedPrices);
+        }).toPass();
     })
 })
 
@@ -81,16 +57,15 @@ test('Verify the displayed products contain Sander in their names', async ({page
     const homePage = new HomePage(page);
 
     await page.goto('/');
-    await page.getByLabel(PowerTools.Sander).check();
-    await page.waitForTimeout(1000);
+    await homePage.checkbox(PowerTools.Sander).check();
 
-    
-    const actualNames = await homePage.productName.allInnerTexts();
+    await expect(async () => {
+        const actualNames = await homePage.getProductNames();
 
-    expect(actualNames.length).toBeGreaterThan(0);
+        expect(actualNames.length).toBeGreaterThan(0);
 
-    for (const name of actualNames) {
-        expect(name).toContain(PowerTools.Sander);
-    }
+        for (const name of actualNames) {
+            expect(name).toContain(PowerTools.Sander);
+        }
+    }).toPass();
 })
-

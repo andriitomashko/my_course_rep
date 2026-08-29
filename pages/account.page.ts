@@ -8,6 +8,7 @@ export class AccountPage {
     profileButton: Locator;
     invoiceButton: Locator;
     messagesButton: Locator;
+    pageTitle: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -16,5 +17,6 @@ export class AccountPage {
         this.profileButton = this.page.getByTestId('nav-profile');
         this.invoiceButton = this.page.getByTestId('nav-invoices');
         this.messagesButton = this.page.getByTestId('nav-messages');
+        this.pageTitle = this.page.getByTestId('page-title');
     }
 }

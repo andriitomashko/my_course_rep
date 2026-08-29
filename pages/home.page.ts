@@ -31,4 +31,17 @@ export class HomePage {
     async selectProduct(name: string) {
         await this.productCards.getByText(name).click();
     }
+
+    productByName(productName: string) {
+        return this.productCards.filter({ hasText: productName})
+    }
+
+    async getProductPrices(): Promise<number[]> {
+        const rawPrices = await this.productPrice.allInnerTexts();
+        return rawPrices.map(price => parseFloat(price.replace('$', '')));
+    }
+
+    async getProductNames(): Promise<string[]> {
+        return this.productName.allInnerTexts();
+    }
 }
