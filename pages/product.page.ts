@@ -13,6 +13,7 @@ export class ProductPage {
     addToCart: Locator;
     addToFavorites: Locator;
     compareButton: Locator;
+    cartAlert: Locator;
 
 
     constructor(page: Page) {
@@ -27,6 +28,7 @@ export class ProductPage {
         this.addToCart = this.page.getByTestId('add-to-cart');
         this.addToFavorites = this.page.getByTestId('add-to-favorites');
         this.compareButton = this.page.getByTestId('add-to-compare');
+        this.cartAlert = this.page.getByRole('alert');
     }
 
     async increaseQuantity() {

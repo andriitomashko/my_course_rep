@@ -28,26 +28,38 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('')`. */
     baseURL: 'https://practicesoftwaretesting.com/',
     testIdAttribute: 'data-test',
-
+    
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
 
   /* Configure projects for major browsers */
   projects: [
+
+    { name: 'perform-login', testMatch: /auth.setup\.spec\.ts/ },
+
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+      storageState: 'playwright/.auth/user.json',
+      ...devices['Desktop Chrome'] },
+      dependencies: ['perform-login'],
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { 
+      storageState: 'playwright/.auth/user.json',
+      ...devices['Desktop Firefox'] },
+      dependencies: ['perform-login'],
     },
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: {
+      storageState: 'playwright/.auth/user.json',
+      ...devices['Desktop Safari'] },
+      dependencies: ['perform-login'],
     },
 
     /* Test against mobile viewports. */
