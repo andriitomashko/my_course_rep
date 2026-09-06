@@ -44,4 +44,13 @@ export class HomePage {
     async getProductNames(): Promise<string[]> {
         return this.productName.allInnerTexts();
     }
+
+    async getFirstProductName(): Promise<string> {
+        return this.productName.first().innerText();
+    }
+
+    async getFirstProductPrice(): Promise<number> {
+        const rawPrice = await this.productPrice.first().innerText();
+        return parseFloat(rawPrice.replace('$', ''));
+    }
 }

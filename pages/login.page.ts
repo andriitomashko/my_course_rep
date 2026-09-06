@@ -21,4 +21,8 @@ export class LoginPage {
         await this.passwordField.fill(password);
         await this.loginButton.click();
     };
+
+    async goto(): Promise<void> {
+        await this.page.goto('/auth/login');
+    }
 };

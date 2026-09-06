@@ -1,5 +1,5 @@
 export const testUser = {
-    email: 'customer3@practicesoftwaretesting.com',
-    password: 'pass123',
-    name: 'Bob Smith',
+    email: 'customer2@practicesoftwaretesting.com',
+    password: 'welcome01',
+    name: 'Jack Howe',
 }
