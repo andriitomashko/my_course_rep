@@ -36,7 +36,7 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
 
-    { name: 'perform-login', testMatch: /auth.setup\.spec\.ts/ },
+    { name: 'perform-login', testMatch: /auth.ui\.spec\.ts/ },
 
     {
       name: 'chromium',

@@ -7,7 +7,7 @@ import path from 'path';
 
 const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 
-test('Successful login to receive session', async ({ page }) => {
+test('User can log in via UI', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const accountPage = new AccountPage(page);
     const header = new HeaderFragment(page);
