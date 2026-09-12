@@ -37,7 +37,6 @@ export const test = base.extend<MyFixtures>({
         }, token);
 
         await page.reload();
-        await page.waitForLoadState('networkidle');
 
         const app = new App(page);
 
