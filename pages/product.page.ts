@@ -38,4 +38,9 @@ export class ProductPage {
     async decreaseQuantity() {
         await this.quantityDecrease.click();
     }
+
+    async getProductPrice(): Promise<number> {
+        const rawPrice = await this.productPrice.innerText();
+        return parseFloat(rawPrice.replace('$', ''));
+    }
 }

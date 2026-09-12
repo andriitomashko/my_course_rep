@@ -13,7 +13,7 @@ test('Successful login to receive session', async ({ page }) => {
     const header = new HeaderFragment(page);
     // test.skip(!!process.env.CI, 'Skip on CI');
 
-    await page.goto('/auth/login');
+    await loginPage.goto();
     await loginPage.performLogin(testUser.email, testUser.password);
     
     await expect(page).toHaveURL('/account');

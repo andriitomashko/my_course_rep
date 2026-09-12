@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test';
-import { HomePage } from 'pages/home.page';
+import { test, expect } from 'fixtures';
 import { PowerTools } from 'test-data/categories.enum';
 
 const nameSortOptions = [
@@ -17,14 +16,12 @@ const priceSortOptions = [
 
 nameSortOptions.forEach(({ name, sortOrder }) => {
 
-    test(`Verify user can perform sorting by ${name}`, async ({page}) => {
-    const homePage = new HomePage(page);
-
-    await page.goto('/');
-    await homePage.sort.selectOption({ label: name });
+    test(`Verify user can perform sorting by ${name}`, async ({app}) => {
+    await app.page.goto('/');
+    await app.homePage.sort.selectOption({ label: name });
 
     await expect(async () => {
-        const actualNames = await homePage.getProductNames();
+        const actualNames = await app.homePage.getProductNames();
         const expectedNames = sortOrder === 'asc' 
             ? [...actualNames].sort() 
             : [...actualNames].sort().reverse();
@@ -36,14 +33,13 @@ nameSortOptions.forEach(({ name, sortOrder }) => {
 
 priceSortOptions.forEach(({ name, sortOrder }) => {
 
-    test(`Verify user can perform sorting by ${name}`, async ({page}) => {
-        const homePage = new HomePage(page);
+    test(`Verify user can perform sorting by ${name}`, async ({app}) => {
 
-        await page.goto('/');
-        await homePage.sort.selectOption({ label: name });
+        await app.page.goto('/');
+        await app.homePage.sort.selectOption({ label: name });
 
         await expect(async () => {
-            const actualPrices = await homePage.getProductPrices();
+            const actualPrices = await app.homePage.getProductPrices();
             const expectedPrices = sortOrder === 'asc'
                 ? [...actualPrices].sort((a, b) => a - b)
                 : [...actualPrices].sort((a, b) => b - a)
@@ -53,14 +49,13 @@ priceSortOptions.forEach(({ name, sortOrder }) => {
     })
 })
 
-test('Verify the displayed products contain Sander in their names', async ({page}) => {
-    const homePage = new HomePage(page);
+test('Verify the displayed products contain Sander in their names', async ({app}) => {
 
-    await page.goto('/');
-    await homePage.checkbox(PowerTools.Sander).check();
+    await app.page.goto('/');
+    await app.homePage.checkbox(PowerTools.Sander).check();
 
     await expect(async () => {
-        const actualNames = await homePage.getProductNames();
+        const actualNames = await app.homePage.getProductNames();
 
         expect(actualNames.length).toBeGreaterThan(0);
 
