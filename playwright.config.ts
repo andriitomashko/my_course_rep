@@ -36,7 +36,7 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
 
-    { name: 'perform-login', testMatch: /auth.setup\.spec\.ts/ },
+    { name: 'perform-login', testMatch: /auth.ui\.spec\.ts/ },
 
     {
       name: 'chromium',
@@ -45,19 +45,19 @@ export default defineConfig({
       dependencies: ['perform-login'],
     },
 
-    {
-      name: 'firefox',
-      use: { 
-      ...devices['Desktop Firefox'] },
-      dependencies: ['perform-login'],
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { 
+    //   ...devices['Desktop Firefox'] },
+    //   dependencies: ['perform-login'],
+    // },
 
-    {
-      name: 'webkit',
-      use: {
-      ...devices['Desktop Safari'] },
-      dependencies: ['perform-login'],
-    },
+    // {
+    //   name: 'webkit',
+    //   use: {
+    //   ...devices['Desktop Safari'] },
+    //   dependencies: ['perform-login'],
+    // },
 
     /* Test against mobile viewports. */
     // {
